@@ -14,6 +14,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public String register(RegisterRequest request) {
 
@@ -41,6 +42,8 @@ public class AuthService {
             throw new RuntimeException("Password incorrect");
         }
 
-        return "Login Success";
+        String token = jwtUtil.generateToken(user.getEmail());
+
+        return token;
     }
 }
